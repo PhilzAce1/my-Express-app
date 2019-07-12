@@ -1,7 +1,9 @@
+const mongoose = require('mongoose');
 const config = require('config');
 const debug = require('debug')('app:startup'); // you have to npm install first o 
 // const dbDebugger = require('debug')('app:db');
 const morgan = require('morgan');
+const customers = require('./routes/customers')
 const helmet = require('helmet');
 const Joi = require('joi'); // import joi
 const { auth, log } = require('./middleware/logger');
@@ -14,6 +16,10 @@ app.set('view engine', "pug"); //this is neccesary for rendering templates
 // app.set('view', './views')
 
 // console.log(logger.auth)
+mongoose.connect('mongodb://localhost/courses1')
+    .then(() => console.log('Connected successfully to the Database'))
+    .catch(err => console.error('could not connect to DB'));
+
 app.get('env');
 app.use(express.json()); // so that name: req.body.name can work
 app.use(log);
@@ -22,15 +28,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(helmet());
 app.use('/api/courses', courses);
+app.use('api/customers', customers);
 app.use('/', home);
 app.use(morgan('tiny'));
 
 //configuration 
 
 
-console.log('application name ' + config.get('name'));
-console.log(' Mail Server' + config.get('mail.host'));
-console.log(' Mail password' + config.get('mail.password'));
+// console.log('application name ' + config.get('name'));
+// console.log(' Mail Server' + config.get('mail.host'));
+// console.log(' Mail password' + config.get('mail.password'));
 if (app.get('env') === 'development') {
     app.use(morgan('tiny'));
     debug('Morgan is enabled');

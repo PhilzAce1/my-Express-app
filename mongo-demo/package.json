@@ -1,5 +1,5 @@
 {
-  "name": "express_demo",
+  "name": "mongo-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,13 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "config": "^3.1.0",
-    "debug": "^4.1.1",
-    "express": "^4.17.1",
-    "helmet": "^3.18.0",
-    "joi": "^14.3.1",
-    "mongoose": "^5.6.4",
-    "morgan": "^1.9.1",
-    "pug": "^2.0.4"
+    "mongoose": "^5.6.4"
   }
 }
